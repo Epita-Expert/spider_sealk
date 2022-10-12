@@ -91,21 +91,22 @@ void Motion4::turn_left(bool lastmovement)
     //Avoid useless reset to center
     if (lastmovement) {
         current_speed = model->spot_turn_speed;
-        armMove(0, {KEEP, KEEP, model->z_up}, true);
-        armMove(0, {model->x_default, model->y_default + model->y_step, model->z_up}, true);
-        armMove(0, {model->x_default, model->y_default + model->y_step, model->z_default}, true);
 
-        armMove(1, {KEEP, KEEP, model->z_up}, true);
-        armMove(1, {model->x_default, model->y_default + model->y_step, model->z_up}, true);
-        armMove(1, {model->x_default, model->y_default + model->y_step, model->z_default}, true);
+        armMove(2, {KEEP, KEEP, model->z_up}, true);
+        armMove(2, {model->x_default, model->y_default + model->y_step, model->z_up}, true);
+        armMove(2, {model->x_default, model->y_default + model->y_step, model->z_default}, true);
 
         armMove(3, {KEEP, KEEP, model->z_up}, true);
         armMove(3, {model->x_default, model->y_default + model->y_step, model->z_up}, true);
         armMove(3, {model->x_default, model->y_default + model->y_step, model->z_default}, true);
 
-        armMove(2, {KEEP, KEEP, model->z_up}, true);
-        armMove(2, {model->x_default, model->y_default + model->y_step, model->z_up}, true);
-        armMove(2, {model->x_default, model->y_default + model->y_step, model->z_default}, true);
+        armMove(1, {KEEP, KEEP, model->z_up}, true);
+        armMove(1, {model->x_default, model->y_default + model->y_step, model->z_up}, true);
+        armMove(1, {model->x_default, model->y_default + model->y_step, model->z_default}, true);
+
+        armMove(0, {KEEP, KEEP, model->z_up}, true);
+        armMove(0, {model->x_default, model->y_default + model->y_step, model->z_up}, true);
+        armMove(0, {model->x_default, model->y_default + model->y_step, model->z_default}, true);
     }
 }
 
