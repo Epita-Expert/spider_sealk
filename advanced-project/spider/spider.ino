@@ -37,25 +37,22 @@ void setup()
 }
 
 //* // Marche
-void loop()
-{
+void loop() {
     trajectory.reset(); //Reset counter to 0
     body.process(trajectory);
     armController.process_orders();
 }
 //*/
 
-/* //Calibration
-   void loop()
-   {
-   for (int i = 0; i < 4; i++) {
-   armController.addPosition({Order::POS, i, 10000, {100, 70, 15}});
-   armController.addPosition({Order::WAIT});
-   }
-   armController.process_orders();
-   delay(1000);
-   }
-//*/
+// Calibration
+// void loop() {
+//     for (int i = 0; i < 4; i++) {
+//         armController.addPosition({Order::POS, i, 10000, {100, 70, 15}});
+//         armController.addPosition({Order::WAIT});
+//     }
+//     armController.process_orders();
+//     delay(1000);
+// }
 
 /* //Avancer
    void loop()

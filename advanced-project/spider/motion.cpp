@@ -60,9 +60,53 @@ void Motion4::armWait()
     armController.process_orders(); // process current orders because need to wait
 }
 
+// R2 - 0
+// R1 - 1
+// L1 - 2
+// L2 - 3
+
 void Motion4::turn_left(bool lastmovement)
 {
-        //TODO add the left turn code
+    //TODO add the left turn code
+    current_speed = model->spot_turn_speed;
+    armMove(2, {73, 25, -20}, true);
+    armMove(2, {73, 25, -40}, true);
+
+    armMove(3, {33, 70, -20}, true);
+    armMove(3, {33, 70, -40}, true);
+
+    armMove(1, {70, 25, -20}, true);
+    armMove(1, {70, 25, -40}, true);
+
+    armMove(0, {33, 70, -20}, true);
+    armMove(0, {33, 70, -40}, true);
+
+    current_speed = model->body_move_speed;
+    armMove(0, {73, 25, -40});
+    armMove(1, {33, 70, -40});
+    armMove(2, {33, 70, -40});
+    armMove(3, {73, 25, -40}, true); //TURN
+
+    //If last movement, reset arm to blue point for next movement.
+    //Avoid useless reset to center
+    if (lastmovement) {
+        current_speed = model->spot_turn_speed;
+        armMove(0, {KEEP, KEEP, model->z_up}, true);
+        armMove(0, {model->x_default, model->y_default + model->y_step, model->z_up}, true);
+        armMove(0, {model->x_default, model->y_default + model->y_step, model->z_default}, true);
+
+        armMove(1, {KEEP, KEEP, model->z_up}, true);
+        armMove(1, {model->x_default, model->y_default + model->y_step, model->z_up}, true);
+        armMove(1, {model->x_default, model->y_default + model->y_step, model->z_default}, true);
+
+        armMove(3, {KEEP, KEEP, model->z_up}, true);
+        armMove(3, {model->x_default, model->y_default + model->y_step, model->z_up}, true);
+        armMove(3, {model->x_default, model->y_default + model->y_step, model->z_default}, true);
+
+        armMove(2, {KEEP, KEEP, model->z_up}, true);
+        armMove(2, {model->x_default, model->y_default + model->y_step, model->z_up}, true);
+        armMove(2, {model->x_default, model->y_default + model->y_step, model->z_default}, true);
+    }
 }
 
 void Motion4::turn_right(bool lastmovement)
@@ -84,6 +128,7 @@ void Motion4::turn_right(bool lastmovement)
     armMove(2, {turn0.x, turn0.y, model->z_up}, true);
     armMove(2, {turn0.x, turn0.y, model->z_default}, true);
 
+    current_speed = model->body_move_speed;
     armMove(0, {turn0.x, turn0.y, model->z_default});
     armMove(1, {turn1.x, turn1.y, model->z_default});
     armMove(2, {turn1.x, turn1.y, model->z_default});
@@ -92,6 +137,7 @@ void Motion4::turn_right(bool lastmovement)
     //If last movement, reset arm to blue point for next movement.
     //Avoid useless reset to center
     if (lastmovement) {
+        current_speed = model->spot_turn_speed;
         armMove(0, {KEEP, KEEP, model->z_up}, true);
         armMove(0, {model->x_default, model->y_default + model->y_step, model->z_up}, true);
         armMove(0, {model->x_default, model->y_default + model->y_step, model->z_default}, true);
@@ -113,6 +159,27 @@ void Motion4::turn_right(bool lastmovement)
 void Motion4::step_forward()
 {
     //TODO add the step forward
+    direction = direction::FORWARD;
+    current_speed = model->leg_move_speed;
+    armMove(0, {KEEP, 50, -40}, true);
+    armMove(0, {KEEP, 100, -20}, true);
+    armMove(0, {KEEP, 100, -40}, true);
+
+    current_speed = model->body_move_speed;
+    armMove(0, {KEEP, 50, -40});
+    armMove(1, {KEEP, 100, -40});
+    armMove(2, {KEEP, 0, -40});
+    armMove(3, {KEEP, 100, -40}, true);
+
+    current_speed = model->leg_move_speed;
+    armMove(1, {KEEP, 50, -20}, true);
+    armMove(1, {KEEP, 50, -40}, true);
+
+    armMove(3, {KEEP, 50, -20}, true);
+    armMove(3, {KEEP, 50, -40}, true);
+
+    armMove(2, {KEEP, 50, -20}, true);
+    armMove(2, {KEEP, 50, -40}, true);
 }
 
 void Motion4::step_back()
